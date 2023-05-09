@@ -1,4 +1,4 @@
-const socket = new WebSocket('wss://192.168.153.252:8080');
+const socket = new WebSocket('ws://192.168.154.252:8080');
 const form = document.getElementById('form');
 
 socket.addEventListener('open', (event) => {
