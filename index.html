@@ -9,6 +9,28 @@
       <input id="message" type="text" placeholder="Message">
       <button id="send">Send</button>
     </form>
-    <script src="script.js"></script>
+    <script>
+      const socket = new WebSocket('ws://192.168.154.252:8080');
+const form = document.getElementById('form');
+
+socket.addEventListener('open', (event) => {
+  console.log('WebSocket connected');
+  socket.send(JSON.stringify({ type: 'app'}));
+});
+
+socket.addEventListener('message', (event) => {
+  console.log(`Received message: ${event.data}`);
+});
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const message = document.getElementById('message').value;
+  socket.send(JSON.stringify({ type: 'app', payload: message }));
+});
+
+socket.addEventListener('close', (event) => {
+  console.log('WebSocket disconnected');
+});
+    </script>
   </body>
 </html>
